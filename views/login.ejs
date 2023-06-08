@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tabla Editable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Agrega los enlaces a los archivos CSS de HTML Elements -->
+    <link rel="stylesheet" type="text/css" href="/modules/smart-webcomponents/source/styles/smart.default.css" />
+</head>
+
+<body>
+    <div id="tableContainer"></div>
+
+    <!-- Agrega el enlace al archivo JavaScript de HTML Elements -->
+    <script type="text/javascript" src="/modules/smart-webcomponents/source/smart.elements.js"></script>
+
+    <script>
+        // Realiza una solicitud HTTP para obtener los datos de /api/jugadores
+        fetch('/api/jugadores')
+            .then(response => response.json())
+            .then(data => {
+                // Configuración de la tabla editable con los datos obtenidos
+                const properties = {
+                    dataSource: new Smart.DataAdapter({
+                        dataSource: data,
+                        dataFields: [
+                            'id: number',
+                            'equipo: string',
+                            'dorsal: number',
+                            'nombre: string'
+                        ]
+                    }),
+                    editing: {
+                        enabled: true,
+                        mode: 'cell'
+                    },
+                    columns: [
+                        { label: 'ID', dataField: 'id', dataType: 'number', allowEdit: false},
+                        { label: 'Equipo', dataField: 'equipo', dataType: 'number'},
+                        { label: 'Dorsal', dataField: 'dorsal', dataType: 'number'},
+                        { label: 'Nombre', dataField: 'nombre', dataType: 'string' }
+                    ]
+                };
+
+                // Crea la tabla editable dentro del contenedor especificado, pruebas
+                const table = new Smart.Grid(document.getElementById('tableContainer'), properties);
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+    </script>
+</body>
+
+</html>

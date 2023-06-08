@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tabla Editable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Agrega los enlaces a los archivos CSS de HTML Elements -->
+    <link rel="stylesheet" type="text/css" href="/modules/smart-webcomponents/source/styles/smart.default.css" />
+</head>
+
+<body>
+    <div id="tableContainer"></div>
+
+    <!-- Agrega el enlace al archivo JavaScript de HTML Elements -->
+    <script type="text/javascript" src="/modules/smart-webcomponents/source/smart.elements.js"></script>
+
+    <script>
+        // Datos de muestra para la tabla
+        const sampleData = [
+            { id: 1, productName: 'Producto 1', quantity: 10, price: 100, date: '2022-01-01' },
+            { id: 2, productName: 'Producto 2', quantity: 5, price: 50, date: '2022-02-01' },
+            { id: 3, productName: 'Producto 3', quantity: 8, price: 80, date: '2022-03-01' },
+            // ... Agrega más datos según sea necesario
+        ];
+
+        // Configuración de la tabla editable
+        const properties = {
+            dataSource: new Smart.DataAdapter({
+                dataSource: sampleData,
+                dataFields: [
+                    'id: number',
+                    'productName: string',
+                    'quantity: number',
+                    'price: number',
+                    'date: date'
+                ]
+            }),
+            editing: {
+                enabled: true,
+                mode: 'cell',
+            },
+            columns: [
+                { label: 'ID', dataField: 'id', dataType: 'number' },
+                { label: 'Nombre del Producto', dataField: 'productName', dataType: 'string' },
+                { label: 'Cantidad', dataField: 'quantity', dataType: 'number' },
+                { label: 'Precio', dataField: 'price', dataType: 'number' },
+                { label: 'Fecha de Compra', dataField: 'date', dataType: 'date' }
+            ]
+        };
+
+        // Crea la tabla editable dentro del contenedor especificado
+        const table = new Smart.Grid(document.getElementById('tableContainer'), properties);
+    </script>
+</body>
+
+</html>
